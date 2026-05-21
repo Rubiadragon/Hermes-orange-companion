@@ -112,6 +112,12 @@ export MORANGE_ASSETS_DIR="/path/to/morange-assets"
 
 ## 发布动画包
 
+用户下载完整动画素材：
+
+- Release 页面：https://github.com/Rubiadragon/Hermes-orange-companion/releases/tag/v0.1.0
+- 完整动画包：https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip
+- SHA256：https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip.sha256
+
 开发者可以从本机运行时素材目录生成 Release 附件：
 
 ```zsh

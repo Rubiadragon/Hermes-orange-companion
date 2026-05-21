@@ -10,7 +10,13 @@
 
 ## Runtime Animations
 
-运行时透明 `.mov` 动画文件体积较大，不建议直接提交到源码仓库。发布 App 时建议把 `MOrangeAnimations.zip` 作为 GitHub Release 附件提供，并解压到：
+运行时透明 `.mov` 动画文件体积较大，不建议直接提交到源码仓库。完整动画包已经作为 GitHub Release 附件提供：
+
+- Release 页面：https://github.com/Rubiadragon/Hermes-orange-companion/releases/tag/v0.1.0
+- 完整动画包：https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip
+- SHA256：https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip.sha256
+
+下载后解压到：
 
 ```text
 ~/Library/Application Support/morange-companion/MOrangeAnimations/

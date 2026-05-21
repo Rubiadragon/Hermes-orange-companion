@@ -4,6 +4,37 @@
 
 ![小橘子桌宠预览](docs/images/hero-thumbnail.png)
 
+## 完整素材下载 / Full Asset Pack
+
+源码仓库只内置轻量预览素材，方便 GitHub 首页、文档和聊天水印直接显示小橘子形象。完整桌宠动画素材请从 Release 下载：
+
+- Release 页面：[v0.1.0](https://github.com/Rubiadragon/Hermes-orange-companion/releases/tag/v0.1.0)
+- 完整动画包：[MOrangeAnimations-v0.1.0.zip](https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip)
+- SHA256 校验：[MOrangeAnimations-v0.1.0.zip.sha256](https://github.com/Rubiadragon/Hermes-orange-companion/releases/download/v0.1.0/MOrangeAnimations-v0.1.0.zip.sha256)
+
+下载后解压到：
+
+```text
+~/Library/Application Support/morange-companion/MOrangeAnimations/
+```
+
+如果 zip 内已经包含 `MOrangeAnimations` 文件夹，可以直接运行：
+
+```zsh
+mkdir -p "$HOME/Library/Application Support/morange-companion"
+unzip "$HOME/Downloads/MOrangeAnimations-v0.1.0.zip" \
+  -d "$HOME/Library/Application Support/morange-companion"
+shasum -a 256 "$HOME/Downloads/MOrangeAnimations-v0.1.0.zip"
+```
+
+校验值应为：
+
+```text
+89d359b811dcbdbcf725a22e0d1980c5c5c2db45ea42427de9eccbb390be07ac
+```
+
+放好后重新启动小橘子桌宠，戳戳、贴贴、气鼓鼓、拖拽、工作、思考、完成等状态会自动读取完整动画素材。
+
 ## 来源与许可证
 
 本项目是在 `Ai-LaoHuang/screen-companion` 的早期工程基础上改造而来，并已经重命名、重构和替换为 `MOrange Companion / 小橘子桌宠` 的产品形态、UI、素材和 Hermes / Codex 工作流。原项目地址与许可证说明见 [docs/ACKNOWLEDGEMENTS.md](docs/ACKNOWLEDGEMENTS.md)。本仓库继续保留 MIT License。
@@ -89,7 +120,9 @@ assets/morange/
 └── interaction-previews/*.png
 ```
 
-完整桌宠动画需要下载 Release 里的 `MOrangeAnimations-v0.1.0.zip`，解压后放到：
+完整桌宠动画需要下载 Release 里的 `MOrangeAnimations-v0.1.0.zip`。详细下载链接和校验方式见顶部的 [完整素材下载 / Full Asset Pack](#完整素材下载--full-asset-pack)。
+
+动画包解压后放到：
 
 ```text
 ~/Library/Application Support/morange-companion/MOrangeAnimations/

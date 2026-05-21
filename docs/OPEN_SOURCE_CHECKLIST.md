@@ -25,7 +25,7 @@ LICENSE
 
 ```zsh
 ./scripts/secret-scan.sh
-rg -n "sk-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9_-]{20,}|Bearer [A-Za-z0-9._-]{20,}" .
+rg -n "sk-proj-[A-Za-z0-9_-]{20,}|sk-svcacct-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9_-]{20,}|Bearer [A-Za-z0-9._-]{20,}" .
 rg -n "/Users/|\\.env|\\.hermes|\\.codex" .
 git status --short
 ```

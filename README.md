@@ -168,7 +168,7 @@ open MOrangeCompanion.xcodeproj
 
 ```zsh
 ./scripts/secret-scan.sh
-rg -n "sk-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9_-]{20,}|Bearer [A-Za-z0-9._-]{20,}" .
+rg -n "sk-proj-[A-Za-z0-9_-]{20,}|sk-svcacct-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9_-]{20,}|Bearer [A-Za-z0-9._-]{20,}" .
 ```
 
 `.gitignore` 已排除 build、DerivedData、`.env`、本地运行数据、签名包、DMG/zip 和大体积动画素材。发布前仍建议重新运行 secret scan，并人工检查截图、日志和 release 文件。

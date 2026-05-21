@@ -18,7 +18,7 @@ EXCLUDES=(
   --glob '!*.zip'
 )
 
-HIGH_CONFIDENCE_PATTERN='sk-proj-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|xai-[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|ghp_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN (RSA |OPENSSH |EC |DSA |PRIVATE )?PRIVATE KEY-----'
+HIGH_CONFIDENCE_PATTERN='sk-proj-[A-Za-z0-9_-]{20,}|sk-svcacct-[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|ghp_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN (RSA |OPENSSH |EC |DSA |PRIVATE )?PRIVATE KEY-----'
 GENERIC_PATTERN='api[_-]?key|secret|token|password|authorization|bearer|\.env|config\.yaml|private[_-]?key|client[_-]?secret|access[_-]?token|refresh[_-]?token'
 HIGH_ENTROPY_PATTERN='[A-Za-z0-9_+/=-]{80,}|[0-9a-fA-F]{64,}'
 

@@ -1,0 +1,17 @@
+*.swift text eol=lf
+*.md text eol=lf
+*.plist text eol=lf
+*.pbxproj text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.sh text eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.icns binary
+*.m4a binary
+*.mov binary
+*.mp4 binary
+*.dmg binary
+*.zip binary

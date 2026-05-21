@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MOrangeCompanion Chat UI Five New Concepts</title>
+  <style>
+    :root {
+      --ink: #26211d;
+      --muted: #75695e;
+      --panel-w: 980px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 34px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255, 220, 142, .45), transparent 28%),
+        radial-gradient(circle at 80% 4%, rgba(161, 215, 231, .4), transparent 30%),
+        linear-gradient(145deg, #fff7e7, #eef6f0 48%, #f9efe7);
+      font-family: "Hiragino Maru Gothic ProN", "PingFang SC", "Tsukushi A Round Gothic", sans-serif;
+    }
+
+    header {
+      max-width: 1160px;
+      margin: 0 auto 26px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      letter-spacing: -.04em;
+    }
+
+    header p {
+      margin: 0;
+      color: #725f51;
+      line-height: 1.7;
+    }
+
+    .stack {
+      display: grid;
+      gap: 34px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .concept {
+      display: grid;
+      grid-template-columns: 158px minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .note {
+      padding: 18px 16px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(95,70,48,.12);
+      box-shadow: 0 18px 40px rgba(64,46,28,.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .note b {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 17px;
+    }
+
+    .note p {
+      margin: 0;
+      color: #6f6258;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .window {
+      position: relative;
+      overflow: hidden;
+      height: 398px;
+      border-radius: var(--radius);
+      color: var(--text);
+      background: var(--bg);
+      border: var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .top {
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: var(--top);
+      border-bottom: var(--top-line);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .avatar {
+      position: relative;
+      width: 34px;
+      height: 30px;
+      border-radius: 45% 45% 38% 38%;
+      background: var(--pet);
+      box-shadow: var(--pet-shadow);
+    }
+
+    .avatar::before,
+    .avatar::after {
+      content: "";
+      position: absolute;
+      top: -9px;
+      width: 17px;
+      height: 17px;
+      background: var(--pet);
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+
+    .avatar::before { left: 4px; transform: rotate(-15deg); }
+    .avatar::after { right: 4px; transform: rotate(15deg); }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: var(--tabs-pad);
+      border-radius: 999px;
+      background: var(--tabs-bg);
+      border: var(--tabs-border);
+    }
+
+    .tab {
+      min-width: 76px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      text-align: center;
+      color: var(--tab-text);
+      font-weight: 850;
+      font-size: 15px;
+    }
+
+    .tab.active {
+      color: var(--tab-active-text);
+      background: var(--tab-active);
+      box-shadow: var(--tab-shadow);
+    }
+
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 148px;
+      height: calc(100% - 62px);
+    }
+
+    .chat {
+      display: grid;
+      grid-template-rows: 1fr 58px;
+      gap: 14px;
+      padding: 18px 22px 20px;
+    }
+
+    .messages {
+      padding: var(--msg-pad);
+      border-radius: var(--msg-radius);
+      background: var(--msg-bg);
+      border: var(--msg-border);
+      box-shadow: var(--msg-shadow);
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    .messages p {
+      margin: 0 0 14px;
+    }
+
+    .messages strong {
+      color: var(--accent);
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
+      border-radius: var(--input-radius);
+      color: var(--placeholder);
+      background: var(--input-bg);
+      border: var(--input-border);
+      box-shadow: var(--input-shadow);
+      font-weight: 800;
+      font-size: 17px;
+    }
+
+    .side {
+      padding: 20px 14px;
+      background: var(--side-bg);
+      border-left: var(--side-line);
+    }
+
+    .side-title {
+      margin: 0 0 12px;
+      color: var(--side-title);
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .chips {
+      display: grid;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: var(--chip-radius);
+      text-align: center;
+      color: var(--chip-text);
+      background: var(--chip-bg);
+      border: var(--chip-border);
+      box-shadow: var(--chip-shadow);
+      font-weight: 900;
+    }
+
+    .pet {
+      position: absolute;
+      width: 72px;
+      height: 50px;
+      right: 124px;
+      bottom: 18px;
+      border-radius: 45% 50% 38% 42%;
+      background: #080604;
+      filter: drop-shadow(0 10px 8px rgba(0,0,0,.16));
+    }
+
+    .pet::before,
+    .pet::after {
+      content: "";
+      position: absolute;
+      top: -13px;
+      width: 24px;
+      height: 24px;
+      background: #080604;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+
+    .pet::before { left: 9px; transform: rotate(-15deg); }
+    .pet::after { right: 8px; transform: rotate(16deg); }
+
+    .deco { position: absolute; pointer-events: none; }
+
+    .storybook {
+      --radius: 30px 44px 34px 46px;
+      --text: #32251d;
+      --accent: #f05a28;
+      --bg: #fff7e7;
+      --top: #fff0bc;
+      --top-line: 3px solid #e55b34;
+      --border: 4px solid #3b2a20;
+      --shadow: 12px 14px 0 #3b2a20, 0 26px 70px rgba(71,45,22,.16);
+      --pet: #1b120d;
+      --pet-shadow: inset 0 -5px #5a3824;
+      --tabs-pad: 4px;
+      --tabs-bg: #fff8dd;
+      --tabs-border: 3px solid #3b2a20;
+      --tab-text: #5a402e;
+      --tab-active: #ff7848;
+      --tab-active-text: #fff7e7;
+      --tab-shadow: inset 0 -4px #d54b28;
+      --msg-pad: 22px 25px;
+      --msg-radius: 24px 34px 28px 36px;
+      --msg-bg: #fffdf5;
+      --msg-border: 3px solid #3b2a20;
+      --msg-shadow: 7px 7px 0 #ffd159;
+      --input-radius: 22px 28px 22px 30px;
+      --input-bg: #fffdf5;
+      --input-border: 3px solid #3b2a20;
+      --input-shadow: 5px 5px 0 #ffb19c;
+      --placeholder: #8e725c;
+      --side-bg: #ffe9a8;
+      --side-line: 3px solid #3b2a20;
+      --side-title: #3b2a20;
+      --chip-radius: 18px 22px 18px 24px;
+      --chip-bg: #fffdf5;
+      --chip-text: #3b2a20;
+      --chip-border: 3px solid #3b2a20;
+      --chip-shadow: 4px 4px 0 #ff7848;
+    }
+
+    .storybook .deco.sun {
+      right: 172px; top: 88px; width: 42px; height: 42px;
+      border-radius: 50%; background: #ffcc3e; border: 3px solid #3b2a20;
+    }
+
+    .pixel {
+      --radius: 0;
+      --text: #1b2432;
+      --accent: #e83f5f;
+      --bg: #d8f0d2;
+      --top: #88c070;
+      --top-line: 4px solid #1b2432;
+      --border: 6px solid #1b2432;
+      --shadow: 10px 10px 0 #1b2432, 0 24px 55px rgba(30,38,55,.18);
+      --pet: #10131c;
+      --pet-shadow: none;
+      --tabs-pad: 0;
+      --tabs-bg: #1b2432;
+      --tabs-border: 4px solid #1b2432;
+      --tab-text: #d8f0d2;
+      --tab-active: #ffd866;
+      --tab-active-text: #1b2432;
+      --tab-shadow: none;
+      --msg-pad: 20px 23px;
+      --msg-radius: 0;
+      --msg-bg: #f5ffe9;
+      --msg-border: 4px solid #1b2432;
+      --msg-shadow: inset -6px -6px 0 #bfe3a8;
+      --input-radius: 0;
+      --input-bg: #f5ffe9;
+      --input-border: 4px solid #1b2432;
+      --input-shadow: inset -5px -5px 0 #bfe3a8;
+      --placeholder: #5d6c55;
+      --side-bg: #bfe3a8;
+      --side-line: 4px solid #1b2432;
+      --side-title: #1b2432;
+      --chip-radius: 0;
+      --chip-bg: #f5ffe9;
+      --chip-text: #1b2432;
+      --chip-border: 4px solid #1b2432;
+      --chip-shadow: none;
+      image-rendering: pixelated;
+    }
+
+    .pixel .window,
+    .pixel * { font-family: "Monaco", "Menlo", monospace; }
+
+    .pixel .deco.block {
+      right: 246px; bottom: 27px; width: 18px; height: 18px;
+      background: #e83f5f; box-shadow: 18px 0 #ffd866, 36px 0 #46a2ff;
+    }
+
+    .catcafe {
+      --radius: 34px;
+      --text: #3a2f2b;
+      --accent: #9d6b43;
+      --bg: linear-gradient(135deg, #fbf1df, #fffaf0);
+      --top: rgba(255,255,255,.58);
+      --top-line: 1px solid rgba(138,98,67,.22);
+      --border: 1px solid rgba(86,60,42,.25);
+      --shadow: 0 28px 70px rgba(75,52,35,.18);
+      --pet: #1c120e;
+      --pet-shadow: inset 0 -5px #553a2a;
+      --tabs-pad: 5px;
+      --tabs-bg: #eee0ca;
+      --tabs-border: 1px solid rgba(116,80,52,.18);
+      --tab-text: #6d5b50;
+      --tab-active: #fff8ea;
+      --tab-active-text: #9d6b43;
+      --tab-shadow: 0 6px 16px rgba(111,75,48,.13);
+      --msg-pad: 23px 26px;
+      --msg-radius: 28px;
+      --msg-bg: rgba(255,255,255,.62);
+      --msg-border: 1px solid rgba(128,89,61,.2);
+      --msg-shadow: inset 0 0 35px rgba(255,236,198,.52);
+      --input-radius: 24px;
+      --input-bg: rgba(255,255,255,.7);
+      --input-border: 1px solid rgba(128,89,61,.25);
+      --input-shadow: none;
+      --placeholder: #998678;
+      --side-bg: rgba(238,224,202,.45);
+      --side-line: 1px solid rgba(128,89,61,.17);
+      --side-title: #7f5b42;
+      --chip-radius: 999px;
+      --chip-bg: #fff8ea;
+      --chip-text: #7f5b42;
+      --chip-border: 1px solid rgba(128,89,61,.18);
+      --chip-shadow: 0 5px 14px rgba(84,57,36,.08);
+    }
+
+    .catcafe::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        radial-gradient(circle at 16px 16px, #b78052 2px, transparent 2px),
+        radial-gradient(circle at 36px 38px, #b78052 1.5px, transparent 1.5px);
+      background-size: 56px 56px;
+    }
+
+    .catcafe .deco.card {
+      left: 50px; bottom: 34px; width: 86px; height: 38px;
+      border-radius: 14px; background: #ead5b6; transform: rotate(-5deg);
+    }
+
+    .jelly {
+      --radius: 42px;
+      --text: #20313a;
+      --accent: #ff6f91;
+      --bg: linear-gradient(135deg, rgba(217,249,255,.72), rgba(255,236,246,.74));
+      --top: rgba(255,255,255,.35);
+      --top-line: 1px solid rgba(255,255,255,.55);
+      --border: 1px solid rgba(255,255,255,.7);
+      --shadow: 0 28px 80px rgba(55,89,105,.22);
+      --pet: #071014;
+      --pet-shadow: 0 0 0 3px rgba(255,255,255,.55);
+      --tabs-pad: 5px;
+      --tabs-bg: rgba(255,255,255,.32);
+      --tabs-border: 1px solid rgba(255,255,255,.55);
+      --tab-text: #52707b;
+      --tab-active: linear-gradient(135deg, #ff8fb1, #ffd166);
+      --tab-active-text: #fff;
+      --tab-shadow: 0 10px 24px rgba(255,111,145,.25);
+      --msg-pad: 23px 26px;
+      --msg-radius: 32px;
+      --msg-bg: rgba(255,255,255,.42);
+      --msg-border: 1px solid rgba(255,255,255,.75);
+      --msg-shadow: inset 0 0 42px rgba(255,255,255,.42);
+      --input-radius: 999px;
+      --input-bg: rgba(255,255,255,.5);
+      --input-border: 1px solid rgba(255,255,255,.8);
+      --input-shadow: 0 10px 24px rgba(99,143,159,.12);
+      --placeholder: #6f8390;
+      --side-bg: rgba(255,255,255,.22);
+      --side-line: 1px solid rgba(255,255,255,.55);
+      --side-title: #40616d;
+      --chip-radius: 999px;
+      --chip-bg: rgba(255,255,255,.5);
+      --chip-text: #40616d;
+      --chip-border: 1px solid rgba(255,255,255,.6);
+      --chip-shadow: none;
+      backdrop-filter: blur(20px);
+    }
+
+    .jelly::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,111,145,.34), transparent 18%),
+        radial-gradient(circle at 88% 24%, rgba(0,194,203,.28), transparent 18%),
+        radial-gradient(circle at 60% 90%, rgba(255,209,102,.38), transparent 20%);
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .jelly .deco.bubble {
+      right: 238px; top: 91px; width: 32px; height: 32px;
+      border-radius: 50%; border: 2px solid rgba(255,255,255,.9);
+      box-shadow: 0 0 22px rgba(255,255,255,.6);
+    }
+
+    .night {
+      --radius: 28px;
+      --text: #fff4dc;
+      --accent: #ffd36b;
+      --bg: radial-gradient(circle at 78% 18%, rgba(255,198,83,.22), transparent 25%), linear-gradient(180deg, #1b2735, #0e1422);
+      --top: rgba(21,31,45,.92);
+      --top-line: 1px solid rgba(255,211,107,.28);
+      --border: 2px solid rgba(255,211,107,.52);
+      --shadow: 0 30px 80px rgba(8,13,22,.38);
+      --pet: #030405;
+      --pet-shadow: 0 0 18px rgba(255,211,107,.34);
+      --tabs-pad: 4px;
+      --tabs-bg: rgba(255,211,107,.12);
+      --tabs-border: 1px solid rgba(255,211,107,.34);
+      --tab-text: #ffe7a6;
+      --tab-active: #ffd36b;
+      --tab-active-text: #28170b;
+      --tab-shadow: 0 0 28px rgba(255,211,107,.28);
+      --msg-pad: 23px 26px;
+      --msg-radius: 20px;
+      --msg-bg: rgba(255,244,220,.08);
+      --msg-border: 1px solid rgba(255,211,107,.25);
+      --msg-shadow: inset 0 0 60px rgba(255,211,107,.08);
+      --input-radius: 20px;
+      --input-bg: rgba(255,244,220,.09);
+      --input-border: 1px solid rgba(255,211,107,.28);
+      --input-shadow: none;
+      --placeholder: #cbb991;
+      --side-bg: rgba(255,211,107,.07);
+      --side-line: 1px solid rgba(255,211,107,.24);
+      --side-title: #ffd36b;
+      --chip-radius: 16px;
+      --chip-bg: rgba(255,211,107,.14);
+      --chip-text: #ffe7a6;
+      --chip-border: 1px solid rgba(255,211,107,.28);
+      --chip-shadow: 0 0 16px rgba(255,211,107,.1);
+    }
+
+    .night::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 62px; height: 42px;
+      background: repeating-linear-gradient(90deg, rgba(211,61,39,.62) 0 18px, rgba(255,211,107,.5) 18px 36px);
+      opacity: .35;
+      mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    .night .deco.moon {
+      right: 208px; top: 86px; width: 44px; height: 44px;
+      border-radius: 50%; background: #ffd36b; box-shadow: 0 0 40px rgba(255,211,107,.45);
+    }
+
+    .night .deco.moon::after {
+      content: ""; position: absolute; left: 14px; top: -2px; width: 42px; height: 42px;
+      border-radius: 50%; background: #1b2735;
+    }
+
+    @media (max-width: 940px) {
+      body { padding: 20px; }
+      .concept { grid-template-columns: 1fr; }
+      .window { height: 470px; }
+      .body { grid-template-columns: 1fr; }
+      .side { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MOrangeCompanion 对话框 UI 五稿</h1>
+    <p>这次拉开风格差距：有手绘、有像素、有小橘子咖、有玻璃、有夜市。先挑“看着顺眼”的，不急着谈实现。</p>
+  </header>
+
+  <main class="stack">
+    <section class="concept">
+      <aside class="note">
+        <b>01 绘本贴纸</b>
+        <p>黑描边、贴纸阴影、儿童绘本感。它最有“桌宠玩具”的气质，视觉记忆点强。</p>
+      </aside>
+      <div class="window storybook">
+        <div class="top"><div class="title"><span class="avatar"></span>姐姐 · 陪聊</div><div class="tabs"><span class="tab">干活</span><span class="tab active">陪聊</span></div></div>
+        <div class="body"><div class="chat"><div class="messages"><p><strong>&gt; 今天有点累</strong><br>那你先不用很厉害，趴一会儿也算认真生活。</p><p><strong>&gt; 切到高兴</strong><br>好，小小橘子已经把快乐举起来了。</p></div><div class="input">把今天的小事讲给我...</div></div><div class="side"><p class="side-title">动作</p><div class="chips"><span class="chip">钓鱼</span><span class="chip">数钱</span><span class="chip">高兴</span><span class="chip">舔毛</span></div></div></div>
+        <span class="deco sun"></span><span class="pet"></span>
+      </div>
+    </section>
+
+    <section class="concept">
+      <aside class="note">
+        <b>02 像素掌机</b>
+        <p>像老 Game Boy 的小窗口，适合桌宠和动作标签。干净、明确，但个性很强。</p>
+      </aside>
+      <div class="window pixel">
+        <div class="top"><div class="title"><span class="avatar"></span>NEKO CHAT</div><div class="tabs"><span class="tab">WORK</span><span class="tab active">TALK</span></div></div>
+        <div class="body"><div class="chat"><div class="messages"><p><strong>&gt; STATUS: TIRED</strong><br>REST MODE IS ALLOWED. YOU ARE STILL LOADING.</p><p><strong>&gt; ACTION: FISH</strong><br>CAT WAITS. HEART RATE -10.</p></div><div class="input">TYPE A SMALL FEELING...</div></div><div class="side"><p class="side-title">ACTION</p><div class="chips"><span class="chip">FISH</span><span class="chip">MONEY</span><span class="chip">HAPPY</span><span class="chip">FOCUS</span></div></div></div>
+        <span class="deco block"></span><span class="pet"></span>
+      </div>
+    </section>
+
+    <section class="concept">
+      <aside class="note">
+        <b>03 小橘子咖便签</b>
+        <p>奶油、咖啡、纸张纹理。最适合长期挂桌面，不刺眼，陪聊感比较自然。</p>
+      </aside>
+      <div class="window catcafe">
+        <div class="top"><div class="title"><span class="avatar"></span>姐姐 · 小橘子咖</div><div class="tabs"><span class="tab">干活</span><span class="tab active">陪聊</span></div></div>
+        <div class="body"><div class="chat"><div class="messages"><p><strong>&gt; 今天没什么精神</strong><br>那就先喝一口温的。事情可以等一等，你不用一直绷着。</p><p><strong>&gt; 小小橘子在干嘛</strong><br>它在认真陪你发呆。</p></div><div class="input">写一张今天的便签...</div></div><div class="side"><p class="side-title">动作</p><div class="chips"><span class="chip">钓鱼</span><span class="chip">吃饱了</span><span class="chip">满地滚</span><span class="chip">认真</span></div></div></div>
+        <span class="deco card"></span><span class="pet"></span>
+      </div>
+    </section>
+
+    <section class="concept">
+      <aside class="note">
+        <b>04 玻璃果冻</b>
+        <p>轻、透、甜，像 iOS 小组件。比较现代，适合你想让它不那么“老软件”。</p>
+      </aside>
+      <div class="window jelly">
+        <div class="top"><div class="title"><span class="avatar"></span>姐姐 · 陪聊</div><div class="tabs"><span class="tab">干活</span><span class="tab active">陪聊</span></div></div>
+        <div class="body"><div class="chat"><div class="messages"><p><strong>&gt; 我有点烦</strong><br>烦的时候不用马上清空。我们先给它一个透明的小盒子。</p><p><strong>&gt; 切动作</strong><br>好，小小橘子正在换成软乎乎的模式。</p></div><div class="input">把心情放进来...</div></div><div class="side"><p class="side-title">动作</p><div class="chips"><span class="chip">高兴</span><span class="chip">钓鱼</span><span class="chip">舔毛</span><span class="chip">无聊</span></div></div></div>
+        <span class="deco bubble"></span><span class="pet"></span>
+      </div>
+    </section>
+
+    <section class="concept">
+      <aside class="note">
+        <b>05 夜市灯笼</b>
+        <p>深色但不冷，像夜里一盏小摊灯。更有故事氛围，也比较适合“知心姐姐”。</p>
+      </aside>
+      <div class="window night">
+        <div class="top"><div class="title"><span class="avatar"></span>姐姐 · 夜谈</div><div class="tabs"><span class="tab">干活</span><span class="tab active">陪聊</span></div></div>
+        <div class="body"><div class="chat"><div class="messages"><p><strong>&gt; 今天很多话不知道跟谁说</strong><br>那就放这里。今晚这盏灯不催你，也不评判你。</p><p><strong>&gt; 小小橘子呢</strong><br>它在旁边守着，尾巴轻轻晃。</p></div><div class="input">慢慢说，我在听...</div></div><div class="side"><p class="side-title">动作</p><div class="chips"><span class="chip">认真</span><span class="chip">高兴</span><span class="chip">钓鱼</span><span class="chip">满地滚</span></div></div></div>
+        <span class="deco moon"></span><span class="pet"></span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

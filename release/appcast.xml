@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+    <channel>
+        <title>MOrange Companion</title>
+        <link>https://github.com/rubiadragon/morange-companion</link>
+        <description>MOrange Companion update feed</description>
+        <language>zh-CN</language>
+        <!--
+            Release checklist:
+            1. Build archive with Release configuration.
+            2. Sign, notarize, and staple the app.
+            3. Create zip:
+               ditto -c -k --keepParent "小橘子桌宠.app" morange-companion-vX.Y.Z.zip
+            4. Generate Sparkle signature and file length.
+            5. Add a new <item> entry here.
+            6. Upload the zip and publish release notes.
+        -->
+    </channel>
+</rss>

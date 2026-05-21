@@ -1,0 +1,58 @@
+# Xcode
+build/
+DerivedData/
+dist/
+*.app
+*.xcarchive
+*.xcresult
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/swiftpm/
+xcuserdata/
+
+# SPM
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+*.swp
+*~
+*.log
+*.tmp
+*.orig
+
+# Large animation assets are distributed separately.
+*.mov
+*.mp4
+*.gif
+*.before-*.mov
+*pre-fix*.mov
+
+# Archives
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Sparkle
+*.dmg
+*.zip
+
+# Secrets and local runtime data
+.env
+.env.*
+.hermes/
+.codex/
+local/
+*.pem
+*.key
+*.p8
+*.p12
+*.cer
+*.mobileprovision
+Secrets.plist
+secrets.*
+Local.xcconfig
+*.local.xcconfig
+GoogleService-Info.plist
